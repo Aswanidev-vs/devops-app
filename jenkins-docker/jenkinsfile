@@ -1,0 +1,6 @@
+cd devops-app
+git checkout develop      # or main, whichever branch the job will build
+# create Jenkinsfile, then:
+git add Jenkinsfile
+git commit -m "ci: add Jenkins declarative pipeline"
+git push
