@@ -35,12 +35,13 @@ pipeline {
       }
     }
 
-    stage('Verify') {
-      steps {
-        sh 'curl -fsS http://localhost:5000/health'
-        sh 'docker compose -f compose.yaml exec -T app python -c "import socket; print(socket.gethostbyname(\'redis\'))"'
-      }
-    }
+ stage('Verify') {
+  steps {
+    sh 'docker compose -f compose.yaml exec -T app python -c "import urllib.request; print(urllib.request.urlopen(\'http://localhost:5000/health\').read().decode())"'
+
+    sh 'docker compose -f compose.yaml exec -T app python -c "import socket; print(socket.gethostbyname(\'redis\'))"'
+  }
+}
   }
 
   post {
